@@ -36,6 +36,9 @@ pub enum Commands {
     /// Member management commands
     Members(commands::members::MembersArgs),
 
+    /// Object management commands
+    Objects(commands::objects::ObjectsArgs),
+
     /// Property management commands
     Properties(commands::properties::PropertiesArgs),
 
@@ -67,6 +70,7 @@ async fn main() -> Result<()> {
         Commands::Auth(args) => commands::auth::handle_auth_command(args).await,
         Commands::Lists(args) => commands::lists::handle_lists_command(args).await,
         Commands::Members(args) => commands::members::handle_members_command(args).await,
+        Commands::Objects(args) => commands::objects::handle_objects_command(args).await,
         Commands::Properties(args) => commands::properties::handle_properties_command(args).await,
         Commands::Spaces(args) => commands::spaces::handle_spaces_command(args).await,
         Commands::Search(args) => commands::search::handle_search_command(args).await,
