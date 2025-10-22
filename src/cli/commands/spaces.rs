@@ -243,6 +243,7 @@ async fn create_object(
         name: Some(name.to_string()),
         type_key: type_key.to_string(),
         properties: None,
+        template_id: None,
     };
 
     let response = client

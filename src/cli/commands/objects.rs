@@ -39,6 +39,9 @@ pub enum ObjectsCommand {
         /// Properties in JSON format (e.g., '{"property":"value"}')
         #[arg(long)]
         properties: Option<String>,
+        /// Template ID to use for the object
+        #[arg(long)]
+        template_id: Option<String>,
     },
     /// Update an existing object in a space
     Update {
@@ -80,7 +83,8 @@ pub async fn handle_objects_command(args: ObjectsArgs) -> Result<()> {
             type_key,
             name,
             properties,
-        } => create_object(&client, &space_id, &type_key, name, properties).await,
+            template_id,
+        } => create_object(&client, &space_id, &type_key, name, properties, template_id).await,
         ObjectsCommand::Update {
             space_id,
             object_id,
@@ -194,6 +198,7 @@ async fn create_object(
     type_key: &str,
     name: Option<String>,
     properties: Option<String>,
+    template_id: Option<String>,
 ) -> Result<()> {
     println!("🏗️ Creating object in space '{space_id}' with type '{type_key}'...");
 
@@ -207,6 +212,7 @@ async fn create_object(
         type_key: type_key.to_string(),
         name,
         properties: Some(properties_json),
+        template_id,
     };
 
     let response = client
